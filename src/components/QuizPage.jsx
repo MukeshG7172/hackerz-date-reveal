@@ -1,10 +1,10 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Level1 from './Level1';
-import Level2 from './Level2';
-import Level3 from './Level3';
-import Wrong from './Wrong';
+import Level1 from './level1';
+import Level2 from './level2';
+import Level3 from './level3';
+import Wrong from './wrong';
 
 export default function QuizPage({ initialQuestions }) {
   const router = useRouter();
