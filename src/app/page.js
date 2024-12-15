@@ -1,6 +1,6 @@
 // src/app/page.js
 import prisma from '@/lib/prisma';
-import QuizPage from '@/components/QuizPage'; 
+import QuizStartPage from '@/components/QuizStartPage'; 
 
 async function getQuestions() {
   try {
@@ -17,5 +17,5 @@ async function getQuestions() {
 export default async function Page() {
   const questions = await getQuestions();
   
-  return <QuizPage initialQuestions={questions} />;
+  return <QuizStartPage initialQuestions={questions} />;
 }
