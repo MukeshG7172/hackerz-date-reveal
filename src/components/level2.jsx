@@ -181,7 +181,6 @@ export default function Level2({ onVideoEnd }) {
                   shadow-lg
                 "
                 playsInline
-                muted
               />
             </div>
           )}

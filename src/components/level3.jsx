@@ -181,7 +181,6 @@ export default function Leve3({ onVideoEnd }) {
                   shadow-lg
                 "
                 playsInline
-                muted
               />
             </div>
           )}
