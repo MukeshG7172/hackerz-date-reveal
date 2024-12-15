@@ -72,8 +72,14 @@ export default function QuizStartPage({ initialQuestions }) {
           density={0.8}
         />
         
-        <div className="absolute inset-0 pointer-events-none bg-grid-white/[0.05] opacity-20 overflow-hidden">
-          <div className="absolute inset-0 bg-red-500/10 animate-glitch-overlay mix-blend-color-dodge"></div>
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <img
+            src="/logo1.png"
+            alt="Logo"
+            className="w-[200px] h-[200px] object-contain mx-auto mt-4 relative z-10"
+          />
+          <div className="absolute inset-0 bg-red-500/10 animate-glitch-overlay mix-blend-color-dodge z-0">
+          </div>
         </div>
         
         <div className="w-full max-w-xl mx-4 bg-[#0a0a0a] border-2 border-red-600/50 rounded-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] overflow-hidden relative animate-terminal-flicker z-10">
@@ -102,12 +108,17 @@ export default function QuizStartPage({ initialQuestions }) {
           speed={30}
           density={0.8}
         />
-        
-        <div className="absolute inset-0 pointer-events-none bg-grid-white/[0.05] opacity-20 overflow-hidden">
-          <div className="absolute inset-0 bg-red-500/10 animate-glitch-overlay mix-blend-color-dodge"></div>
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <img
+            src="/logo1.png"
+            alt="Logo"
+            className="w-[200px] h-[200px] object-contain mx-auto mt-4 relative z-10"
+          />
+          <div className="absolute inset-0 bg-red-500/10 animate-glitch-overlay mix-blend-color-dodge z-0">
+          </div>
         </div>
         
-        <div className="w-full max-w-xl mx-4 bg-[#0a0a0a] border-2 border-red-600/50 rounded-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] overflow-hidden relative animate-terminal-flicker z-10">
+        <div className="w-full mt-[150px] max-w-xl mx-4 bg-[#0a0a0a] border-2 border-red-600/50 rounded-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] overflow-hidden relative animate-terminal-flicker z-10">
           <div className="bg-red-900/30 text-white p-2 flex items-center justify-between border-b border-red-600/30">
             <div className="flex items-center text-sm sm:text-base">
               <Code className="mr-2 text-red-500" size={16} />
