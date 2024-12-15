@@ -148,21 +148,27 @@ export default function HackerQuizPage({ initialQuestions }) {
   if (currentLevel) {
     return currentLevel;
   }
-
   return (
     <div className={`
-      min-h-screen bg-black text-white 
-      flex items-center justify-center 
-      overflow-hidden relative
+      min-h-screen 
+      bg-black 
+      text-white 
+      flex 
+      items-center 
+      justify-center 
+      overflow-hidden 
+      relative
+      p-4  // Added padding for smaller screens
       ${hackEffect ? 'animate-glitch-screen' : ''}
       ${backgroundNoise ? 'animate-background-noise' : ''}
     `}>
       <MatrixNumberRain 
-      numColumns={50}  
-      speed={30}       
-      density={0.8}     
-    />
-      {/* Cyber grid and glitch background */}
+        numColumns={50}  
+        speed={30}       
+        density={0.8}     
+      />
+      
+      {/* Background Grid */}
       <div className="
         absolute 
         inset-0 
@@ -171,7 +177,6 @@ export default function HackerQuizPage({ initialQuestions }) {
         opacity-20
         overflow-hidden
       ">
-        {/* Animated glitch overlay */}
         <div className="
           absolute 
           inset-0 
@@ -180,6 +185,45 @@ export default function HackerQuizPage({ initialQuestions }) {
           mix-blend-color-dodge
         "></div>
       </div>
+
+      {/* Firewall Breach Indicator */}
+      {currentQuestionIndex > 0 && (
+        <div className="
+          mt-[30px]
+          fixed 
+          top-4 
+          left-0 
+          right-0 
+          flex 
+          justify-center 
+          z-50
+          px-4  // Added horizontal padding
+        ">
+          <div className="
+            bg-red-900/80 
+            text-white 
+            px-4 
+            py-2 
+            rounded-full 
+            text-sm 
+            sm:text-base 
+            md:text-xl 
+            uppercase 
+            tracking-wider 
+            animate-pulse
+            flex 
+            items-center
+            max-w-full 
+            overflow-hidden 
+            text-ellipsis
+          ">
+            <ShieldAlert className="mr-2 flex-shrink-0" size={16} />
+            <span className="whitespace-nowrap overflow-hidden text-ellipsis">
+              {currentQuestionIndex === 1 ? 'Firewall 1 has been breached' : 'Firewall 2 has been breached'}
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* System Warning Ticker */}
       <div className="
@@ -194,12 +238,15 @@ export default function HackerQuizPage({ initialQuestions }) {
         items-center 
         justify-center 
         overflow-hidden
+        text-xs 
+        sm:text-sm
       ">
         {systemWarnings.map(warning => (
           <div 
             key={warning.id} 
             className={`
-              mr-4 
+              mr-2 
+              sm:mr-4 
               flex 
               items-center 
               animate-slide-in
@@ -208,39 +255,54 @@ export default function HackerQuizPage({ initialQuestions }) {
             `}
           >
             {warning.type === 'critical' ? (
-              <AlertTriangle className="mr-2" size={16} />
+              <AlertTriangle className="mr-1 sm:mr-2" size={window.innerWidth < 640 ? 12 : 16}  />
             ) : warning.type === 'warning' ? (
-              <ShieldAlert className="mr-2" size={16} />
+              <ShieldAlert className="mr-1 sm:mr-2" size={window.innerWidth < 640 ? 12 : 16} />
             ) : (
-              <Cpu className="mr-2" size={16} />
+              <Cpu className="mr-1 sm:mr-2" size={window.innerWidth < 640 ? 12 : 16}  />
             )}
-            {warning.message}
+            <span className="truncate">{warning.message}</span>
           </div>
         ))}
       </div>
 
       {/* Terminal-like container */}
       <div className="
-        w-full max-w-md 
+        w-full 
+        max-w-md 
+        md:max-w-lg 
+        lg:max-w-xl 
         bg-[#0a0a0a] 
-        border-2 border-red-600/50 
+        border-2 
+        border-red-600/50 
         rounded-xl 
         shadow-[0_0_40px_rgba(255,0,0,0.5)]
         overflow-hidden
         relative
         animate-terminal-flicker
+        mt-16 
+        md:mt-20 
+        lg:mt-24
       ">
         {/* Hacker status bar */}
         <div className="
           bg-red-900/30 
           text-white 
           p-2 
-          flex items-center 
+          flex 
+          items-center 
           justify-between
-          border-b border-red-600/30
+          border-b 
+          border-red-600/30
+          text-xs 
+          sm:text-sm
         ">
           <div className="flex items-center">
-            <Code className="mr-2 text-red-500" size={16} />
+          <Code 
+  className="mr-1 sm:mr-2 text-red-500" 
+  size={window.innerWidth < 640 ? 12 : 16} 
+/>
+
             SYSTEM BREACH: LEVEL {currentQuestionIndex + 1}
           </div>
           <div className="text-grey-300 animate-pulse">
@@ -249,24 +311,29 @@ export default function HackerQuizPage({ initialQuestions }) {
         </div>
 
         {/* Question Content */}
-        <div className="p-6">
+        <div className="p-4 sm:p-6">
           <h2 className="
-            text-xl 
+            text-base 
+            sm:text-xl 
             text-red-500 
-            mb-4 
-            flex items-center 
+            mb-2 
+            sm:mb-4 
+            flex 
+            items-center 
             uppercase 
             tracking-widest
             animate-glitch-text
           ">
-            <ShieldAlert className="mr-2" size={20} />
+            <ShieldAlert className="mr-1 sm:mr-2" size={window.innerWidth < 640 ? 16 : 20}  />
             Security Challenge
           </h2>
 
           <h3 className="
-            text-2xl 
+            text-lg 
+            sm:text-2xl 
             text-white 
-            mb-6 
+            mb-4 
+            sm:mb-6 
             text-center 
             opacity-80
             hover:opacity-100
@@ -277,14 +344,15 @@ export default function HackerQuizPage({ initialQuestions }) {
             {currentQuestion.question}
           </h3>
 
-          <div className="space-y-4 relative">
+          <div className="space-y-2 sm:space-y-4 relative">
             {['option1', 'option2', 'option3', 'option4'].map((optionKey, index) => (
               <button
                 key={optionKey}
                 onClick={() => handleAnswer(currentQuestion[optionKey])}
                 className={`
                   w-full 
-                  p-4 
+                  p-2 
+                  sm:p-4 
                   rounded-lg 
                   text-left 
                   transition-all 
@@ -299,6 +367,8 @@ export default function HackerQuizPage({ initialQuestions }) {
                   group
                   relative
                   overflow-hidden
+                  text-sm 
+                  sm:text-base
                   ${ghostHover === optionKey 
                     ? 'bg-red-900/50 border-red-500 text-white animate-pulse' 
                     : ''
@@ -331,14 +401,15 @@ export default function HackerQuizPage({ initialQuestions }) {
                 "></div>
 
                 <span className="
-                  text-lg 
+                  text-sm 
+                  sm:text-lg 
                   font-mono 
                   relative 
                   z-10
                   flex 
                   items-center
                 ">
-                  <Skull className="mr-2 text-red-500 opacity-50 group-hover:opacity-100" size={16} />
+                  <Skull className="mr-1 sm:mr-2 text-red-500 opacity-50 group-hover:opacity-100" size={window.innerWidth < 640 ? 12 : 16}  />
                   {String.fromCharCode(65 + index)}. {currentQuestion[optionKey]}
                 </span>
               </button>
