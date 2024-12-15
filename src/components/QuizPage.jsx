@@ -26,10 +26,7 @@ export default function HackerQuizPage({ initialQuestions }) {
   const generateSystemWarning = () => {
     const warnings = [
       "INTRUSION DETECTED",
-      "FIREWALL BREACH",
-      "UNAUTHORIZED ACCESS",
-      "SYSTEM VULNERABILITY",
-      "DATA EXFILTRATION IN PROGRESS"
+      "FIREWALL BREACH"
     ];
     const newWarning = {
       id: Date.now(),
@@ -161,9 +158,9 @@ export default function HackerQuizPage({ initialQuestions }) {
       ${backgroundNoise ? 'animate-background-noise' : ''}
     `}>
       <MatrixNumberRain 
-      numColumns={50}   // Number of falling columns
-      speed={30}        // Speed of falling (lower is faster)
-      density={0.8}     // Frequency of number generation
+      numColumns={50}  
+      speed={30}       
+      density={0.8}     
     />
       {/* Cyber grid and glitch background */}
       <div className="
@@ -191,7 +188,7 @@ export default function HackerQuizPage({ initialQuestions }) {
         left-0 
         right-0 
         bg-red-900/50 
-        text-white 
+        text-red
         p-2 
         flex 
         items-center 
@@ -207,7 +204,7 @@ export default function HackerQuizPage({ initialQuestions }) {
               items-center 
               animate-slide-in
               ${warning.type === 'critical' ? 'text-red-500' : 
-                warning.type === 'warning' ? 'text-yellow-500' : 'text-white'}
+                warning.type === 'warning' ? 'text-red-500' : 'text-red'}
             `}
           >
             {warning.type === 'critical' ? (
