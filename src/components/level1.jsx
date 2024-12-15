@@ -8,7 +8,6 @@ export default function Level1({ onVideoEnd }) {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    // Set a timeout to hide congratulations message after 3 seconds
     const timer = setTimeout(() => {
       setShowCongratulations(false);
     }, 3000);
@@ -17,7 +16,6 @@ export default function Level1({ onVideoEnd }) {
   }, []);
 
   useEffect(() => {
-    // Only attempt to play video when congratulations message is hidden
     if (!showCongratulations) {
       const videoElement = videoRef.current;
       if (videoElement) {
