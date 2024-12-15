@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, ReactElement } from 'react'
 import { ShieldAlert, Code, Skull, AlertTriangle, Zap } from 'lucide-react';
 import MatrixNumberRain from './MatrixNumberRain';
 
@@ -19,7 +19,9 @@ export default function Level2({ onVideoEnd }) {
     if (!showCongratulations) {
       const videoElement = videoRef.current;
       if (videoElement) {
-        videoElement.play();
+        videoElement.play().catch(error => {
+          console.error('Video play error:', error);
+        });
 
         const handleVideoEnd = () => {
           console.log('Level 2 video explicitly ended');
@@ -47,15 +49,14 @@ export default function Level2({ onVideoEnd }) {
       justify-center 
       overflow-hidden 
       relative
+      p-4
     ">
-      {/* Matrix Number Rain Background */}
       <MatrixNumberRain 
         numColumns={50}  
         speed={30}       
         density={0.8}     
       />
 
-      {/* Cyber grid and glitch background */}
       <div className="
         absolute 
         inset-0 
@@ -64,7 +65,6 @@ export default function Level2({ onVideoEnd }) {
         opacity-20
         overflow-hidden
       ">
-        {/* Animated glitch overlay */}
         <div className="
           absolute 
           inset-0 
@@ -74,7 +74,6 @@ export default function Level2({ onVideoEnd }) {
         "></div>
       </div>
 
-      {/* Terminal-like container */}
       <div className="
         w-full 
         max-w-xl 
@@ -88,7 +87,6 @@ export default function Level2({ onVideoEnd }) {
         animate-terminal-flicker
         z-10
       ">
-        {/* Hacker status bar */}
         <div className="
           bg-red-900/30 
           text-white 
@@ -100,7 +98,7 @@ export default function Level2({ onVideoEnd }) {
           border-red-600/30
         ">
           <div className="flex items-center">
-            <Code className="mr-2 text-red-500" size={16} />
+            <Code className="mr-2 text-red-500" size={window.innerWidth < 640 ? 16 : 22} />
             BREACH PROTOCOL: LEVEL 2
           </div>
           <div className="text-grey-300 animate-pulse">
@@ -108,8 +106,7 @@ export default function Level2({ onVideoEnd }) {
           </div>
         </div>
 
-        {/* Content Container */}
-        <div className="p-8 text-center">
+        <div className="p-4 sm:p-8 text-center">
           {showCongratulations ? (
             <div className="
               flex 
@@ -119,7 +116,8 @@ export default function Level2({ onVideoEnd }) {
               space-y-6
             ">
               <div className="
-                text-4xl 
+                text-2xl 
+                sm:text-4xl 
                 font-bold 
                 text-red-500 
                 uppercase 
@@ -127,28 +125,36 @@ export default function Level2({ onVideoEnd }) {
                 animate-glitch-text
                 flex 
                 items-center
+                flex-wrap
+                justify-center
+                gap-4
               ">
-                <Zap className="mr-4 text-yellow-500 animate-pulse" size={48} />
+                <Zap className="text-yellow-500 animate-pulse" size={window.innerWidth < 640 ? 32 : 34}  />
                 Level 2
-                <Skull className="ml-4 text-white animate-bounce" size={48} />
+                <Skull className="text-white animate-bounce" size={window.innerWidth < 640 ? 32 : 34} />
               </div>
               
               <div className="
-                text-xl 
+                text-base 
+                sm:text-xl 
                 text-white 
                 opacity-70 
                 mb-6
                 animate-subtle-glitch
                 flex 
                 items-center
+                flex-wrap
+                justify-center
+                gap-4
               ">
-                <ShieldAlert className="mr-4 text-red-500" size={32} />
+                <ShieldAlert className="text-red-500" size={24} />
                 Breach Successful
-                <AlertTriangle className="ml-4 text-red-500" size={32} />
+                <AlertTriangle className="text-red-500" size={24} />
               </div>
               
               <div className="
-                text-sm 
+                text-xs 
+                sm:text-sm 
                 text-red-500 
                 animate-flicker
               ">
@@ -156,12 +162,26 @@ export default function Level2({ onVideoEnd }) {
               </div>
             </div>
           ) : (
-            <div className="w-full h-[500px] flex items-center justify-center">
+            <div className="
+              w-full 
+              h-[300px] 
+              sm:h-[500px] 
+              flex 
+              items-center 
+              justify-center
+            ">
               <video
                 ref={videoRef}
                 src="/lvl2.mp4"
-                className="max-w-full max-h-full object-contain"
+                className="
+                  max-w-full 
+                  max-h-full 
+                  object-contain 
+                  rounded-lg 
+                  shadow-lg
+                "
                 playsInline
+                muted
               />
             </div>
           )}
