@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, ReactElement } from 'react'
 import { ShieldAlert, Code, Skull, AlertTriangle, Zap } from 'lucide-react';
 import MatrixNumberRain from './MatrixNumberRain';
 
-export default function Level2({ onVideoEnd }) {
+export default function Leve2({ onVideoEnd }) {
   const [showCongratulations, setShowCongratulations] = useState(true);
   const videoRef = useRef(null);
 
@@ -40,7 +40,43 @@ export default function Level2({ onVideoEnd }) {
   }, [showCongratulations, onVideoEnd]);
 
   return (
-    <div className="
+    <>
+      <div className="
+          mt-[30px]
+          fixed 
+          top-4 
+          left-0 
+          right-0 
+          flex 
+          justify-center 
+          z-50
+          px-4  // Added horizontal padding
+        ">
+        <div className="
+            bg-red-900/80 
+            text-white 
+            px-4 
+            py-2 
+            rounded-full 
+            text-sm 
+            sm:text-base 
+            md:text-xl 
+            uppercase 
+            tracking-wider 
+            animate-pulse
+            flex 
+            items-center
+            max-w-full 
+            overflow-hidden 
+            text-ellipsis
+          ">
+          <ShieldAlert className="mr-2 flex-shrink-0" size={16} />
+          <span className="whitespace-nowrap overflow-hidden text-ellipsis">
+            Firewall 2 has been breached
+          </span>
+        </div>
+      </div>
+      <div className="
       min-h-screen 
       bg-black 
       text-white 
@@ -51,13 +87,13 @@ export default function Level2({ onVideoEnd }) {
       relative
       p-4
     ">
-      <MatrixNumberRain 
-        numColumns={50}  
-        speed={30}       
-        density={0.8}     
-      />
+        <MatrixNumberRain
+          numColumns={50}
+          speed={30}
+          density={0.8}
+        />
 
-      <div className="
+        <div className="
         absolute 
         inset-0 
         pointer-events-none 
@@ -65,16 +101,16 @@ export default function Level2({ onVideoEnd }) {
         opacity-20
         overflow-hidden
       ">
-        <div className="
+          <div className="
           absolute 
           inset-0 
           bg-red-500/10 
           animate-glitch-overlay 
           mix-blend-color-dodge
         "></div>
-      </div>
+        </div>
 
-      <div className="
+        <div className="
         w-full 
         max-w-xl 
         bg-[#0a0a0a] 
@@ -87,7 +123,7 @@ export default function Level2({ onVideoEnd }) {
         animate-terminal-flicker
         z-10
       ">
-        <div className="
+          <div className="
           bg-red-900/30 
           text-white 
           p-2 
@@ -97,25 +133,25 @@ export default function Level2({ onVideoEnd }) {
           border-b 
           border-red-600/30
         ">
-          <div className="flex items-center">
-            <Code className="mr-2 text-red-500" size={window.innerWidth < 640 ? 16 : 22} />
-            BREACH PROTOCOL: LEVEL 2
+            <div className="flex items-center">
+              <Code className="mr-2 text-red-500" size={window.innerWidth < 640 ? 16 : 22} />
+              BREACH PROTOCOL: LEVEL 2
+            </div>
+            <div className="text-grey-300 animate-pulse">
+              {new Date().toLocaleTimeString()}
+            </div>
           </div>
-          <div className="text-grey-300 animate-pulse">
-            {new Date().toLocaleTimeString()}
-          </div>
-        </div>
 
-        <div className="p-4 sm:p-8 text-center">
-          {showCongratulations ? (
-            <div className="
+          <div className="p-4 sm:p-8 text-center">
+            {showCongratulations ? (
+              <div className="
               flex 
               flex-col 
               items-center 
               justify-center 
               space-y-6
             ">
-              <div className="
+                <div className="
                 text-2xl 
                 sm:text-4xl 
                 font-bold 
@@ -129,12 +165,12 @@ export default function Level2({ onVideoEnd }) {
                 justify-center
                 gap-4
               ">
-                <Zap className="text-yellow-500 animate-pulse" size={window.innerWidth < 640 ? 32 : 34}  />
-                Level 2
-                <Skull className="text-white animate-bounce" size={window.innerWidth < 640 ? 32 : 34} />
-              </div>
-              
-              <div className="
+                  <Zap className="text-yellow-500 animate-pulse" size={window.innerWidth < 640 ? 32 : 34} />
+                  Level 1
+                  <Skull className="text-white animate-bounce" size={window.innerWidth < 640 ? 32 : 34} />
+                </div>
+
+                <div className="
                 text-base 
                 sm:text-xl 
                 text-white 
@@ -147,45 +183,82 @@ export default function Level2({ onVideoEnd }) {
                 justify-center
                 gap-4
               ">
-                <ShieldAlert className="text-red-500" size={24} />
-                Breach Successful
-                <AlertTriangle className="text-red-500" size={24} />
-              </div>
-              
-              <div className="
+                  <ShieldAlert className="text-red-500" size={24} />
+                  Breach Successful
+                  <AlertTriangle className="text-red-500" size={24} />
+                </div>
+
+                <div className="
                 text-xs 
                 sm:text-sm 
                 text-red-500 
                 animate-flicker
               ">
-                Accessing next security layer...
+                  Accessing next security layer...
+                </div>
               </div>
-            </div>
-          ) : (
-            <div className="
+            ) : (
+              <div className="
               w-full 
-              h-[300px] 
-              sm:h-[500px] 
+              h-[200px] 
+              sm:h-[300px] 
               flex 
               items-center 
               justify-center
             ">
-              <video
-                ref={videoRef}
-                src="/lvl2.mp4"
-                className="
+                <video
+                  ref={videoRef}
+                  src="/lvl2.mp4"
+                  className="
                   max-w-full 
                   max-h-full 
                   object-contain 
                   rounded-lg 
                   shadow-lg
                 "
-                playsInline
-              />
-            </div>
-          )}
+                  playsInline
+                />
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+      <div className="
+          mt-[30px]
+          fixed 
+          top-4 
+          left-0 
+          right-0 
+          flex 
+          justify-center 
+          z-50
+          px-4  // Added horizontal padding
+        ">
+        <div className="
+        mt-[550px]
+            bg-red-900/80 
+            text-white 
+            px-4 
+            py-2 
+            rounded-full 
+            text-sm 
+            sm:text-base 
+            md:text-xl 
+            uppercase 
+            tracking-wider 
+            animate-pulse
+            flex 
+            items-center
+            max-w-full 
+            overflow-hidden 
+            text-ellipsis
+          ">
+          <ShieldAlert className="mr-2 flex-shrink-0" size={16} />
+          <span className="whitespace-nowrap overflow-hidden text-ellipsis">
+            Firewall 3 is loading...
+          </span>
+        </div>
+      </div>
+    </>
   )
 }

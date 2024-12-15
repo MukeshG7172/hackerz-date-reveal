@@ -110,15 +110,11 @@ export default function HackerQuizPage({ initialQuestions }) {
           break;
         case 2:
           setCurrentLevel(
-            <Level3 
-              onVideoEnd={() => {
-                router.push('/completion');
-              }} 
-            />
+            <Level3 />
           );
           break;
         default:
-          router.push('/completion');
+          router.push('/');
       }
     } else {
       setIsWrong(true);
