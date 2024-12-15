@@ -13,6 +13,7 @@ export default function Wrong({ onRetry }) {
       justify-center 
       bg-black 
       text-white 
+      font-grotesk
       overflow-hidden 
       relative
       p-4

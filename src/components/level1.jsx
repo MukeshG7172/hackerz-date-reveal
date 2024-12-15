@@ -50,7 +50,8 @@ export default function Level1({ onVideoEnd }) {
           flex 
           justify-center 
           z-50
-          px-4  // Added horizontal padding
+          px-4 
+          font-grotesk
         ">
         <div className="
             bg-red-900/80 
@@ -78,6 +79,7 @@ export default function Level1({ onVideoEnd }) {
       </div>
       <div className="
       min-h-screen 
+      font-grotesk
       bg-black 
       text-white 
       flex 
@@ -225,6 +227,7 @@ export default function Level1({ onVideoEnd }) {
       </div>
       <div className="
           mt-[30px]
+          font-grotesk
           fixed 
           top-4 
           left-0 

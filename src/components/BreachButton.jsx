@@ -47,11 +47,10 @@ const BreachButton = ({ onClick }) => {
       />
 
       {/* Button Content */}
-      <div className="relative z-10 flex items-center justify-center">
+      <div className="relative z-10 flex items-center font-grotesk justify-center">
         <ShieldAlert 
           className={`
             mr-3
-            font-mono
             transition-transform
             duration-300
             ${isHovered ? 'rotate-12 text-red-400' : 'text-white'}

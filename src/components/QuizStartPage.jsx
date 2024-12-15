@@ -66,7 +66,7 @@ export default function QuizStartPage({ initialQuestions }) {
 
   if (stage === 'initial-text') {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center overflow-hidden relative">
+      <div className="min-h-screen font-grotesk bg-black text-white flex items-center justify-center overflow-hidden relative">
         <MatrixNumberRain
           numColumns={typeof window !== 'undefined' ? Math.min(50, Math.floor(window.innerWidth / 20)) : 50}
           speed={30}
@@ -97,7 +97,7 @@ export default function QuizStartPage({ initialQuestions }) {
 
   if (stage === 'start-text') {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center overflow-hidden relative">
+      <div className="min-h-screen bg-black font-grotesk text-white flex items-center justify-center overflow-hidden relative">
         <MatrixNumberRain
           numColumns={typeof window !== 'undefined' ? Math.min(50, Math.floor(window.innerWidth / 20)) : 50}
           speed={30}
@@ -124,7 +124,7 @@ export default function QuizStartPage({ initialQuestions }) {
               <AlertTriangle className="animate-pulse" size={window.innerWidth < 640 ? 32 : 48}  />
             </div>
             
-            <div className="text-base sm:text-2xl text-white font-mono opacity-70 mb-6 animate-subtle-glitch px-2">
+            <div className="text-base sm:text-2xl text-white font-grotesk opacity-70 mb-6 animate-subtle-glitch px-2">
               {instructionText}
               <span className="animate-blink">|</span>
             </div>

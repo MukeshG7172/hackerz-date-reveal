@@ -7,6 +7,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        grotesk: ['Space Grotesk', 'sans-serif'],
+      },
       colors: {
         background: "var(--background, #000000)",
         foreground: "var(--foreground, #ffffff)",
@@ -25,7 +28,7 @@ export default {
         'ghost-hover': 'ghost-hover 0.5s infinite alternate',
         'ghost-border': 'ghost-border 1s infinite alternate',
         'pulse': 'pulse 1s infinite',
-        
+
         // New hacking-themed animations
         'data-breach': 'data-breach 0.5s infinite alternate',
         'system-warning': 'system-warning 1s infinite alternate',
@@ -55,7 +58,7 @@ export default {
           '0%': { opacity: '0.5' },
           '100%': { opacity: '1' },
         },
-        
+
         // New keyframe animations
         'data-breach': {
           '0%': { transform: 'skew(-5deg)' },

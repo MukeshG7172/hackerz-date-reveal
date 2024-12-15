@@ -147,6 +147,7 @@ export default function HackerQuizPage({ initialQuestions }) {
   return (
     <div className={`
       min-h-screen 
+      font-grotesk
       bg-black 
       text-white 
       flex 
@@ -399,7 +400,7 @@ export default function HackerQuizPage({ initialQuestions }) {
                 <span className="
                   text-sm 
                   sm:text-lg 
-                  font-mono 
+                  font-grotesk
                   relative 
                   z-10
                   flex 

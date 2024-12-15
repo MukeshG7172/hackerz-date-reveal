@@ -123,7 +123,7 @@ export default function QuizStartPage({ initialQuestions }) {
               <AlertTriangle className="ml-4 animate-pulse" size={48} />
             </div>
             
-            <div className="text-2xl text-white font-mono opacity-70 mb-6 animate-subtle-glitch">
+            <div className="text-2xl text-white font-grotesk opacity-70 mb-6 animate-subtle-glitch">
               {instructionText}
               <span className="animate-blink">|</span>
             </div>

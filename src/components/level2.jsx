@@ -44,6 +44,7 @@ export default function Leve2({ onVideoEnd }) {
       <div className="
           mt-[30px]
           fixed 
+          font-grotesk
           top-4 
           left-0 
           right-0 
@@ -78,6 +79,7 @@ export default function Leve2({ onVideoEnd }) {
       </div>
       <div className="
       min-h-screen 
+      font-grotesk
       bg-black 
       text-white 
       flex 
@@ -166,7 +168,7 @@ export default function Leve2({ onVideoEnd }) {
                 gap-4
               ">
                   <Zap className="text-yellow-500 animate-pulse" size={window.innerWidth < 640 ? 32 : 34} />
-                  Level 1
+                  Level 2
                   <Skull className="text-white animate-bounce" size={window.innerWidth < 640 ? 32 : 34} />
                 </div>
 
@@ -227,6 +229,7 @@ export default function Leve2({ onVideoEnd }) {
           mt-[30px]
           fixed 
           top-4 
+          font-grotesk
           left-0 
           right-0 
           flex 

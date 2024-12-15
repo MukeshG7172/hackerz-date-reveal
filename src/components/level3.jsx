@@ -96,7 +96,7 @@ export default function QuizStartPage({ initialQuestions }) {
 
   if (stage === 'start-text') {
     return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center overflow-hidden relative">
+      <div className="min-h-screen bg-black text-white flex items-center font-grotesk justify-center overflow-hidden relative">
         <MatrixNumberRain
           numColumns={window.innerWidth < 768 ? 20 : 50}
           speed={30}
@@ -127,7 +127,7 @@ export default function QuizStartPage({ initialQuestions }) {
               </div>
             </div>
             
-            <div className="text-base sm:text-2xl text-white font-mono opacity-70 mb-6 animate-subtle-glitch px-2">
+            <div className="text-base sm:text-2xl text-white font-grotesk opacity-70 mb-6 animate-subtle-glitch px-2">
               {instructionText}
               <span className="animate-blink">|</span>
             </div>
@@ -143,7 +143,7 @@ export default function QuizStartPage({ initialQuestions }) {
    
   if (stage === 'video') {
     return (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
+      <div className="fixed inset-0 z-50 flex items-center font-grotesk justify-center bg-black">
         <video
           ref={videoRef}
           src="/ending.mp4"

@@ -87,7 +87,7 @@ const MatrixNumberRain = ({
             top-0 
             text-center 
             select-none
-            font-mono
+            font-grotesk
             text-xs
           "
           style={{
