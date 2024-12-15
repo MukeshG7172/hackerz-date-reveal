@@ -68,7 +68,7 @@ export default function QuizStartPage({ initialQuestions }) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center overflow-hidden relative">
         <MatrixNumberRain
-          numColumns={50}
+          numColumns={typeof window !== 'undefined' ? Math.min(50, Math.floor(window.innerWidth / 20)) : 50}
           speed={30}
           density={0.8}
         />
@@ -77,16 +77,16 @@ export default function QuizStartPage({ initialQuestions }) {
           <div className="absolute inset-0 bg-red-500/10 animate-glitch-overlay mix-blend-color-dodge"></div>
         </div>
         
-        <div className="w-full max-w-xl bg-[#0a0a0a] border-2 border-red-600/50 rounded-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] overflow-hidden relative animate-terminal-flicker z-10">
+        <div className="w-full max-w-xl mx-4 bg-[#0a0a0a] border-2 border-red-600/50 rounded-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] overflow-hidden relative animate-terminal-flicker z-10">
           <div className="bg-red-900/30 text-white p-2 flex items-center justify-between border-b border-red-600/30">
-            <div className="flex items-center">
+            <div className="flex items-center text-sm sm:text-base">
               <Code className="mr-2 text-red-500" size={16} />
               SYSTEM BREACH DETECTED
             </div>
           </div>
           
-          <div className="p-8 text-center">
-            <div className="text-2xl text-red-500 mb-6 animate-pulse">
+          <div className="p-4 sm:p-8 text-center">
+            <div className="text-xl sm:text-2xl text-red-500 mb-6 animate-pulse">
               Initializing Breach Protocol...
             </div>
           </div>
@@ -99,7 +99,7 @@ export default function QuizStartPage({ initialQuestions }) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center overflow-hidden relative">
         <MatrixNumberRain
-          numColumns={50}
+          numColumns={typeof window !== 'undefined' ? Math.min(50, Math.floor(window.innerWidth / 20)) : 50}
           speed={30}
           density={0.8}
         />
@@ -108,29 +108,31 @@ export default function QuizStartPage({ initialQuestions }) {
           <div className="absolute inset-0 bg-red-500/10 animate-glitch-overlay mix-blend-color-dodge"></div>
         </div>
         
-        <div className="w-full max-w-xl bg-[#0a0a0a] border-2 border-red-600/50 rounded-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] overflow-hidden relative animate-terminal-flicker z-10">
+        <div className="w-full max-w-xl mx-4 bg-[#0a0a0a] border-2 border-red-600/50 rounded-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] overflow-hidden relative animate-terminal-flicker z-10">
           <div className="bg-red-900/30 text-white p-2 flex items-center justify-between border-b border-red-600/30">
-            <div className="flex items-center">
+            <div className="flex items-center text-sm sm:text-base">
               <Code className="mr-2 text-red-500" size={16} />
               SYSTEM BREACH DETECTED
             </div>
           </div>
           
-          <div className="p-8 text-center">
-            <div className="text-6xl font-bold mb-6 text-red-500 uppercase tracking-widest animate-glitch-text flex items-center justify-center">
-              <ShieldAlert className="mr-4 animate-pulse" size={48} />
-              Start
-              <Skull className="ml-4 text-white animate-bounce" size={48} />
-              <AlertTriangle className="ml-4 animate-pulse" size={48} />
+          <div className="p-4 sm:p-8 text-center">
+            <div className="text-3xl sm:text-6xl font-bold mb-6 text-red-500 uppercase tracking-widest animate-glitch-text flex items-center justify-center flex-wrap gap-2">
+              <ShieldAlert className="animate-pulse" size={window.innerWidth < 640 ? 32 : 48}  />
+              <span>Start</span>
+              <Skull className="text-white animate-bounce"size={window.innerWidth < 640 ? 32 : 48}  />
+              <AlertTriangle className="animate-pulse" size={window.innerWidth < 640 ? 32 : 48}  />
             </div>
             
-            <div className="text-2xl text-white font-mono opacity-70 mb-6 animate-subtle-glitch">
+            <div className="text-base sm:text-2xl text-white font-mono opacity-70 mb-6 animate-subtle-glitch px-2">
               {instructionText}
               <span className="animate-blink">|</span>
             </div>
             
             {showButton && (
-              <BreachButton onClick={handleStartBreaching} />
+              <div className="flex justify-center">
+                <BreachButton onClick={handleStartBreaching} />
+              </div>
             )}
           </div>
         </div>
