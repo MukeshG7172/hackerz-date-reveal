@@ -12,7 +12,7 @@ export default function QuizStartPage({ initialQuestions }) {
   const router = useRouter();
   const videoRef = useRef(null);    
 
-  const fullInstructionText = "You have successfully bypassed all the three firewalls. You can now access the Hackerz system";
+  const fullInstructionText = "You have Successfully Bypassed all the Three Firewalls. You can now Access the Hackerz System";
 
   useEffect(() => {
     if (stage === 'initial-text') {
