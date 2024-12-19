@@ -82,7 +82,7 @@ export default function HackerQuizPage({ initialQuestions }) {
 
   const handleAnswer = (selectedAnswer) => {
     triggerHackEffect();
-    generateSystemWarning(); // Additional warning on interaction
+    generateSystemWarning();
     
     if (selectedAnswer === currentQuestion.answer) {
       switch(currentQuestionIndex) {
