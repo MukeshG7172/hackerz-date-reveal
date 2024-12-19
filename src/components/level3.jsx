@@ -1,16 +1,16 @@
-'use client'; 
-import React, { useState, useRef, useEffect } from 'react'; 
-import { useRouter } from 'next/navigation'; 
-import { AlertTriangle, Code, ShieldAlert, Skull } from 'lucide-react'; 
-import MatrixNumberRain from './MatrixNumberRain';  
+'use client';
+import React, { useState, useRef, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { AlertTriangle, Code, ShieldAlert, Skull } from 'lucide-react';
+import MatrixNumberRain from './MatrixNumberRain';
 import BreachButton from './EndBreach';
 
-export default function QuizStartPage({ initialQuestions }) {   
-  const [stage, setStage] = useState('initial-text');   
+export default function QuizStartPage({ initialQuestions }) {
+  const [stage, setStage] = useState('initial-text');
   const [instructionText, setInstructionText] = useState('');
   const [showButton, setShowButton] = useState(false);
   const router = useRouter();
-  const videoRef = useRef(null);    
+  const videoRef = useRef(null);
 
   const fullInstructionText = "You have Successfully Bypassed all the Three Firewalls. You can now Access the Hackerz System";
 
@@ -38,30 +38,30 @@ export default function QuizStartPage({ initialQuestions }) {
           setShowButton(true);
         }
       }, 10);
-  
+
       return () => clearInterval(typingInterval);
     }
   }, [stage]);
 
-  const handleStartBreaching = () => {     
-    console.log('Start Breaching button clicked');     
-    setStage('video');     
-    setTimeout(() => {       
-      if (videoRef.current) {         
-        console.log('Video element found', videoRef.current);                  
-        videoRef.current.play()           
-          .then(() => {             
-            console.log('Video started playing successfully');           
-          })           
-          .catch((error) => {             
-            console.error('Error playing video:', error);             
-            alert('Please interact with the page to start the video');           
-          });       
-      } else {         
-        console.error('Video ref is null');       
-      }     
-    }, 100);   
-  };    
+  const handleStartBreaching = () => {
+    console.log('Start Breaching button clicked');
+    setStage('video');
+    setTimeout(() => {
+      if (videoRef.current) {
+        console.log('Video element found', videoRef.current);
+        videoRef.current.play()
+          .then(() => {
+            console.log('Video started playing successfully');
+          })
+          .catch((error) => {
+            console.error('Error playing video:', error);
+            alert('Please interact with the page to start the video');
+          });
+      } else {
+        console.error('Video ref is null');
+      }
+    }, 100);
+  };
 
   if (stage === 'initial-text') {
     return (
@@ -71,7 +71,7 @@ export default function QuizStartPage({ initialQuestions }) {
           speed={30}
           density={0.8}
         />
-        
+
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <img
             src="/logo1.png"
@@ -81,7 +81,7 @@ export default function QuizStartPage({ initialQuestions }) {
           <div className="absolute inset-0 bg-red-500/10 animate-glitch-overlay mix-blend-color-dodge z-0">
           </div>
         </div>
-        
+
         <div className="w-full max-w-xl mx-4 bg-[#0a0a0a] border-2 border-red-600/50 rounded-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] overflow-hidden relative animate-terminal-flicker z-10">
           <div className="bg-red-900/30 text-white p-2 flex items-center justify-between border-b border-red-600/30">
             <div className="flex items-center text-sm sm:text-base">
@@ -89,7 +89,7 @@ export default function QuizStartPage({ initialQuestions }) {
               SYSTEM BREACH DETECTED
             </div>
           </div>
-          
+
           <div className="p-4 sm:p-8 text-center">
             <div className="text-xl sm:text-2xl text-red-500 mb-6 animate-pulse">
               Finishing Breach Protocol...
@@ -117,7 +117,7 @@ export default function QuizStartPage({ initialQuestions }) {
           <div className="absolute inset-0 bg-red-500/10 animate-glitch-overlay mix-blend-color-dodge z-0">
           </div>
         </div>
-        
+
         <div className="w-full mt-[150px] max-w-xl mx-4 bg-[#0a0a0a] border-2 border-red-600/50 rounded-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] overflow-hidden relative animate-terminal-flicker z-10">
           <div className="bg-red-900/30 text-white p-2 flex items-center justify-between border-b border-red-600/30">
             <div className="flex items-center text-sm sm:text-base">
@@ -125,11 +125,11 @@ export default function QuizStartPage({ initialQuestions }) {
               SYSTEM BREACH DETECTED
             </div>
           </div>
-          
+
           <div className="p-4 sm:p-8 text-center">
             <div className="text-3xl sm:text-6xl font-bold mb-6 text-red-500 uppercase tracking-widest animate-glitch-text flex flex-col sm:flex-row items-center justify-center">
               <div className="flex items-center mb-4 sm:mb-0">
-                <ShieldAlert className="mr-2 sm:mr-4 animate-pulse" size={window.innerWidth < 640 ? 32 : 48}  />
+                <ShieldAlert className="mr-2 sm:mr-4 animate-pulse" size={window.innerWidth < 640 ? 32 : 48} />
                 BREACHED
               </div>
               <div className="flex items-center">
@@ -137,12 +137,12 @@ export default function QuizStartPage({ initialQuestions }) {
                 <AlertTriangle className="ml-2 sm:ml-4 animate-pulse" size={window.innerWidth < 640 ? 32 : 48} />
               </div>
             </div>
-            
+
             <div className="text-base sm:text-2xl text-white font-grotesk opacity-70 mb-6 animate-subtle-glitch px-2">
               {instructionText}
               <span className="animate-blink">|</span>
             </div>
-            
+
             {showButton && (
               <BreachButton onClick={handleStartBreaching} />
             )}
@@ -151,7 +151,7 @@ export default function QuizStartPage({ initialQuestions }) {
       </div>
     );
   }
-   
+
   if (stage === 'video') {
     return (
       <div className="fixed inset-0 z-50 flex items-center font-grotesk justify-center bg-black">
@@ -161,8 +161,9 @@ export default function QuizStartPage({ initialQuestions }) {
           autoPlay
           playsInline
           className="w-full h-full object-contain"
+          onEnded={() => router.push('/badge')}
         />
       </div>
     );
-  }
+  } F
 }
