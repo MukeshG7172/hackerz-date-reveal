@@ -1,6 +1,6 @@
 'use client';
-import { useState, useEffect, useRef, ReactElement } from 'react'
-import { ShieldAlert, Code, Skull, AlertTriangle, Zap } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { ShieldAlert, Code, Skull, AlertTriangle, Zap, SkipForward } from 'lucide-react';
 import MatrixNumberRain from './MatrixNumberRain';
 
 export default function Level1({ onVideoEnd }) {
@@ -38,6 +38,12 @@ export default function Level1({ onVideoEnd }) {
       }
     }
   }, [showCongratulations, onVideoEnd]);
+
+  const handleSkip = () => {
+    if (onVideoEnd) {
+      onVideoEnd();
+    }
+  };
 
   return (
     <>
@@ -77,6 +83,40 @@ export default function Level1({ onVideoEnd }) {
           </span>
         </div>
       </div>
+
+      {/* Skip Button */}
+      <button
+        onClick={handleSkip}
+        className="
+          fixed
+          bottom-4
+          right-4
+          z-50
+          bg-red-900/80
+          hover:bg-red-800
+          text-white
+          px-4
+          py-2
+          rounded-full
+          text-sm
+          sm:text-base
+          uppercase
+          tracking-wider
+          flex
+          items-center
+          gap-2
+          transition-all
+          duration-300
+          hover:scale-105
+          shadow-lg
+          hover:shadow-red-500/50
+        "
+      >
+        <span className="hidden sm:inline">Skip to next Firewall</span>
+        <span className="sm:hidden">Skip</span>
+        <SkipForward size={16} />
+      </button>
+
       <div className="
       min-h-screen 
       font-grotesk
@@ -225,6 +265,7 @@ export default function Level1({ onVideoEnd }) {
           </div>
         </div>
       </div>
+
       <div className="
           mt-[30px]
           font-grotesk
@@ -235,7 +276,7 @@ export default function Level1({ onVideoEnd }) {
           flex 
           justify-center 
           z-50
-          px-4  // Added horizontal padding
+          px-4
         ">
         <div className="
         mt-[550px]
@@ -263,5 +304,5 @@ export default function Level1({ onVideoEnd }) {
         </div>
       </div>
     </>
-  )
+  );
 }

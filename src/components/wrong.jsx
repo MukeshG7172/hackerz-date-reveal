@@ -11,7 +11,7 @@ export default function Wrong({ onRetry }) {
     if (stage === 'message') {
       const loadingTimeout = setTimeout(() => {
         setStage('loading');
-      }, 4000);
+      });
 
       return () => clearTimeout(loadingTimeout);
     }
