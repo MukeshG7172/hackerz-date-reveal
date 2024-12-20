@@ -12,6 +12,7 @@ export default function QuizStartPage({ initialQuestions }) {
   const [showButton, setShowButton] = useState(false);
   const router = useRouter();
   const videoRef = useRef(null);
+  const audioRef = useRef(null);
 
   const fullInstructionText = "The System Security of Hackerz is Protected by a Three-tier Firewall Mechanism. To Gain Access, all levels of the Firewall must be successfully Bypassed.";
 
@@ -30,6 +31,14 @@ export default function QuizStartPage({ initialQuestions }) {
       let index = 0;
       setInstructionText('');
       setShowButton(false);
+
+      if (audioRef.current) {
+        audioRef.current.currentTime = 0;
+        audioRef.current.play().catch(error => {
+          console.error('Error playing audio:', error);
+        });
+      }
+
       const typingInterval = setInterval(() => {
         if (index < fullInstructionText.length) {
           setInstructionText(fullInstructionText.slice(0, index + 1));
@@ -40,7 +49,13 @@ export default function QuizStartPage({ initialQuestions }) {
         }
       }, 10);
 
-      return () => clearInterval(typingInterval);
+      return () => {
+        clearInterval(typingInterval);
+        if (audioRef.current) {
+          audioRef.current.pause();
+          audioRef.current.currentTime = 0;
+        }
+      };
     }
   }, [stage]);
 
@@ -102,7 +117,6 @@ export default function QuizStartPage({ initialQuestions }) {
     </div>
   );
 
-
   const baseLayout = (content) => (
     <div className="min-h-screen font-grotesk bg-black text-white flex items-center justify-center overflow-hidden relative">
       <MatrixNumberRain
@@ -110,6 +124,8 @@ export default function QuizStartPage({ initialQuestions }) {
         speed={30}
         density={0.8}
       />
+
+      <audio ref={audioRef} src="/instruction.mp3" preload="auto" />
 
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <img
