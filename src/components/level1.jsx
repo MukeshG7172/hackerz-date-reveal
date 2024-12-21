@@ -84,7 +84,6 @@ export default function Level1({ onVideoEnd }) {
         </div>
       </div>
 
-      {/* Skip Button */}
       <button
         onClick={handleSkip}
         className="
