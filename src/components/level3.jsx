@@ -178,6 +178,7 @@ export default function QuizStartPage({ initialQuestions }) {
           autoPlay
           playsInline
           className="w-full h-full object-contain"
+          onEnded={() => router.push('/comments')}
         />
       </div>
     );
