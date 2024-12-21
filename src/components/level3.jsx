@@ -45,17 +45,11 @@ export default function QuizStartPage({ initialQuestions }) {
         } else {
           clearInterval(typingInterval);
           setShowButton(true);
-          // Stop the audio when typing is complete
-          if (audioRef.current) {
-            audioRef.current.pause();
-            audioRef.current.currentTime = 0;
-          }
         }
       }, 10);
   
       return () => {
         clearInterval(typingInterval);
-        // Cleanup: stop audio if component unmounts during typing
         if (audioRef.current) {
           audioRef.current.pause();
           audioRef.current.currentTime = 0;
