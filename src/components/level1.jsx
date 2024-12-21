@@ -1,131 +1,308 @@
 'use client';
-import { useState } from 'react';
-import { ShieldAlert, MessageSquare, CheckCircle, AlertTriangle } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { ShieldAlert, Code, Skull, AlertTriangle, Zap, SkipForward } from 'lucide-react';
 import MatrixNumberRain from './MatrixNumberRain';
 
-export default function FeedbackForm() {
-  const [comment, setComment] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+export default function Level1({ onVideoEnd }) {
+  const [showCongratulations, setShowCongratulations] = useState(true);
+  const videoRef = useRef(null);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowCongratulations(false);
+    }, 3000);
 
-    try {
-      const response = await fetch('/api/comments', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ comment }),
-      });
+    return () => clearTimeout(timer);
+  }, []);
 
-      if (!response.ok) {
-        throw new Error('Failed to submit comment');
+  useEffect(() => {
+    if (!showCongratulations) {
+      const videoElement = videoRef.current;
+      if (videoElement) {
+        videoElement.play().catch(error => {
+          console.error('Video play error:', error);
+        });
+
+        const handleVideoEnd = () => {
+          console.log('Level 1 video explicitly ended');
+          if (onVideoEnd) {
+            onVideoEnd();
+          }
+        };
+
+        videoElement.addEventListener('ended', handleVideoEnd);
+
+        return () => {
+          videoElement.removeEventListener('ended', handleVideoEnd);
+        };
       }
+    }
+  }, [showCongratulations, onVideoEnd]);
 
-      setIsSubmitted(true);
-    } catch (error) {
-      console.error('Error submitting comment:', error);
-      alert('Failed to submit comment. Please try again.');
-    } finally {
-      setIsSubmitting(false);
+  const handleSkip = () => {
+    if (onVideoEnd) {
+      onVideoEnd();
     }
   };
 
-  if (isSubmitted) {
-    return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center p-4 relative">
+  return (
+    <>
+      <div className="
+          mt-[30px]
+          fixed 
+          top-4 
+          left-0 
+          right-0 
+          flex 
+          justify-center 
+          z-50
+          px-4 
+          font-grotesk
+        ">
+        <div className="
+            bg-red-900/80 
+            text-white 
+            px-4 
+            py-2 
+            rounded-full 
+            text-sm 
+            sm:text-base 
+            md:text-xl 
+            uppercase 
+            tracking-wider 
+            animate-pulse
+            flex 
+            items-center
+            max-w-full 
+            overflow-hidden 
+            text-ellipsis
+          ">
+          <ShieldAlert className="mr-2 flex-shrink-0" size={16} />
+          <span className="whitespace-nowrap overflow-hidden text-ellipsis">
+            Firewall 1 has been breached
+          </span>
+        </div>
+      </div>
+
+      {/* Skip Button */}
+      <button
+        onClick={handleSkip}
+        className="
+          fixed
+          bottom-4
+          right-4
+          z-50
+          bg-red-900/80
+          hover:bg-red-800
+          text-white
+          px-4
+          py-2
+          rounded-full
+          text-sm
+          sm:text-base
+          uppercase
+          tracking-wider
+          flex
+          items-center
+          gap-2
+          transition-all
+          duration-300
+          hover:scale-105
+          shadow-lg
+          hover:shadow-red-500/50
+        "
+      >
+        <span className="hidden sm:inline">Skip to next Firewall</span>
+        <span className="sm:hidden">Skip to next Firewall</span>
+        <SkipForward size={16} />
+      </button>
+
+      <div className="
+      min-h-screen 
+      font-grotesk
+      bg-black 
+      text-white 
+      flex 
+      items-center 
+      justify-center 
+      overflow-hidden 
+      relative
+      p-4
+    ">
         <MatrixNumberRain
-          numColumns={30}
+          numColumns={50}
           speed={30}
           density={0.8}
         />
-        <div className="absolute inset-0 pointer-events-none bg-grid-white/[0.05] opacity-20">
-          <div className="absolute inset-0 bg-red-500/10 animate-glitch-overlay mix-blend-color-dodge"></div>
-        </div>
-        <div className="w-full max-w-xl text-center space-y-6 bg-[#0a0a0a] border-2 border-red-600/50 rounded-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] p-8 animate-terminal-flicker">
-          <CheckCircle className="w-16 h-16 md:w-24 md:h-24 text-red-500 mx-auto animate-bounce" />
-          <div className="text-2xl md:text-4xl font-bold text-red-500 uppercase tracking-widest animate-glitch-text">
-            Transmission Complete
-          </div>
-          <div className="text-base md:text-xl text-white/70 flex items-center justify-center gap-2">
-            <AlertTriangle className="text-red-500" size={20} />
-            Feedback successfully encrypted and transmitted
-            <AlertTriangle className="text-red-500" size={20} />
-          </div>
-        </div>
-      </div>
-    );
-  }
 
-  return (
-    <div className="min-h-screen bg-black text-white flex items-center justify-center p-4 relative">
-      <div className="fixed top-4 left-0 right-0 flex justify-center z-150 px-4 font-grotesk">
-        <div className="bg-red-900/80 text-white px-4 py-2 rounded-full text-sm sm:text-base md:text-xl uppercase tracking-wider animate-pulse flex items-center">
-          <ShieldAlert className="mr-2 flex-shrink-0 h-4 w-4 md:h-5 md:w-5" />
-          <span className="whitespace-nowrap">Secure Feedback Protocol Initiated</span>
+        <div className="
+        absolute 
+        inset-0 
+        pointer-events-none 
+        bg-grid-white/[0.05] 
+        opacity-20
+        overflow-hidden
+      ">
+          <div className="
+          absolute 
+          inset-0 
+          bg-red-500/10 
+          animate-glitch-overlay 
+          mix-blend-color-dodge
+        "></div>
         </div>
-      </div>
 
-      <MatrixNumberRain
-        numColumns={30}
-        speed={30}
-        density={0.8}
-      />
-      
-      <div className="absolute inset-0 pointer-events-none bg-grid-white/[0.05] opacity-20">
-        <div className="absolute inset-0 bg-red-500/10 animate-glitch-overlay mix-blend-color-dodge"></div>
-      </div>
-
-      <div className="w-full max-w-xl bg-[#0a0a0a] border-2 border-red-600/50 rounded-xl shadow-[0_0_40px_rgba(255,0,0,0.5)] overflow-hidden relative animate-terminal-flicker z-150">
-        <div className="bg-red-900/30 text-white p-2 flex items-center justify-between border-b border-red-600/30">
-          <div className="flex items-center">
-            <MessageSquare className="mr-2 text-red-500 h-4 w-4 md:h-5 md:w-5" />
-            FEEDBACK PROTOCOL v1.0
-          </div>
-          <div className="text-grey-300 animate-pulse">
-            {new Date().toLocaleTimeString()}
-          </div>
-        </div>
-        
-        <div className="p-4 md:p-8">
-          <h1 className="text-xl md:text-3xl font-bold text-red-500 mb-6 text-center uppercase tracking-wider animate-subtle-glitch">
-            Submit Intelligence Report
-          </h1>
-          
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <textarea
-                value={comment}
-                onChange={(e) => setComment(e.target.value)}
-                placeholder="Enter your encrypted message..."
-                className="w-full h-32 bg-black/50 border border-red-600/30 rounded-lg p-4 text-white placeholder-gray-400 focus:outline-none focus:border-red-500 focus:ring-1 focus:ring-red-500 transition"
-                required
-              />
+        <div className="
+        w-full 
+        max-w-xl 
+        bg-[#0a0a0a] 
+        border-2 
+        border-red-600/50 
+        rounded-xl 
+        shadow-[0_0_40px_rgba(255,0,0,0.5)]
+        overflow-hidden
+        relative
+        animate-terminal-flicker
+        z-10
+      ">
+          <div className="
+          bg-red-900/30 
+          text-white 
+          p-2 
+          flex 
+          items-center 
+          justify-between
+          border-b 
+          border-red-600/30
+        ">
+            <div className="flex items-center">
+              <Code className="mr-2 text-red-500" size={window.innerWidth < 640 ? 16 : 22} />
+              BREACH PROTOCOL: LEVEL 1
             </div>
-            
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="w-full bg-red-600/80 hover:bg-red-700 text-white font-bold py-3 px-6 rounded-lg transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-wider flex items-center justify-center gap-2"
-            >
-              {isSubmitting ? (
-                <>
-                  <div className="animate-spin h-5 w-5 border-2 border-white border-t-transparent rounded-full"/>
-                  Encrypting...
-                </>
-              ) : (
-                <>
-                  <ShieldAlert className="h-5 w-5" />
-                  Transmit Feedback
-                </>
-              )}
-            </button>
-          </form>
+            <div className="text-grey-300 animate-pulse">
+              {new Date().toLocaleTimeString()}
+            </div>
+          </div>
+
+          <div className="p-4 sm:p-8 text-center">
+            {showCongratulations ? (
+              <div className="
+              flex 
+              flex-col 
+              items-center 
+              justify-center 
+              space-y-6
+            ">
+                <div className="
+                text-2xl 
+                sm:text-4xl 
+                font-bold 
+                text-red-500 
+                uppercase 
+                tracking-widest
+                animate-glitch-text
+                flex 
+                items-center
+                flex-wrap
+                justify-center
+                gap-4
+              ">
+                  <Zap className="text-yellow-500 animate-pulse" size={window.innerWidth < 640 ? 32 : 34} />
+                  Level 1
+                  <Skull className="text-white animate-bounce" size={window.innerWidth < 640 ? 32 : 34} />
+                </div>
+
+                <div className="
+                text-base 
+                sm:text-xl 
+                text-white 
+                opacity-70 
+                mb-6
+                animate-subtle-glitch
+                flex 
+                items-center
+                flex-wrap
+                justify-center
+                gap-4
+              ">
+                  <ShieldAlert className="text-red-500" size={24} />
+                  Breach Successful
+                  <AlertTriangle className="text-red-500" size={24} />
+                </div>
+
+                <div className="
+                text-xs 
+                sm:text-sm 
+                text-red-500 
+                animate-flicker
+              ">
+                  Accessing next security layer...
+                </div>
+              </div>
+            ) : (
+              <div className="
+              w-full 
+              h-[200px] 
+              sm:h-[300px] 
+              flex 
+              items-center 
+              justify-center
+            ">
+                <video
+                  ref={videoRef}
+                  src="/lvl1.mp4"
+                  className="
+                  max-w-full 
+                  max-h-full 
+                  object-contain 
+                  rounded-lg 
+                  shadow-lg
+                "
+                  playsInline
+                />
+              </div>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+
+      <div className="
+          mt-[30px]
+          font-grotesk
+          fixed 
+          top-4 
+          left-0 
+          right-0 
+          flex 
+          justify-center 
+          z-50
+          px-4
+        ">
+        <div className="
+        mt-[550px]
+            bg-red-900/80 
+            text-white 
+            px-4 
+            py-2 
+            rounded-full 
+            text-sm 
+            sm:text-base 
+            md:text-xl 
+            uppercase 
+            tracking-wider 
+            animate-pulse
+            flex 
+            items-center
+            max-w-full 
+            overflow-hidden 
+            text-ellipsis
+          ">
+          <ShieldAlert className="mr-2 flex-shrink-0" size={16} />
+          <span className="whitespace-nowrap overflow-hidden text-ellipsis">
+            Firewall 2 is loading...
+          </span>
+        </div>
+      </div>
+    </>
   );
 }
