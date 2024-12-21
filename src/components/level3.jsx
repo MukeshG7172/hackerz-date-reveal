@@ -11,6 +11,7 @@ export default function QuizStartPage({ initialQuestions }) {
   const [showButton, setShowButton] = useState(false);
   const router = useRouter();
   const videoRef = useRef(null);    
+  const audioRef = useRef(null);
 
   const fullInstructionText = "You have Successfully Bypassed all the Three Firewalls. You can now Access the Hackerz System";
 
@@ -29,6 +30,14 @@ export default function QuizStartPage({ initialQuestions }) {
       let index = 0;
       setInstructionText('');
       setShowButton(false);
+
+      // Start playing the audio when typewriting begins
+      if (audioRef.current) {
+        audioRef.current.play().catch(error => {
+          console.error('Error playing audio:', error);
+        });
+      }
+
       const typingInterval = setInterval(() => {
         if (index < fullInstructionText.length) {
           setInstructionText(fullInstructionText.slice(0, index + 1));
@@ -36,10 +45,22 @@ export default function QuizStartPage({ initialQuestions }) {
         } else {
           clearInterval(typingInterval);
           setShowButton(true);
+          // Stop the audio when typing is complete
+          if (audioRef.current) {
+            audioRef.current.pause();
+            audioRef.current.currentTime = 0;
+          }
         }
       }, 10);
   
-      return () => clearInterval(typingInterval);
+      return () => {
+        clearInterval(typingInterval);
+        // Cleanup: stop audio if component unmounts during typing
+        if (audioRef.current) {
+          audioRef.current.pause();
+          audioRef.current.currentTime = 0;
+        }
+      };
     }
   }, [stage]);
 
@@ -66,6 +87,7 @@ export default function QuizStartPage({ initialQuestions }) {
   if (stage === 'initial-text') {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center overflow-hidden relative">
+        <audio ref={audioRef} src="/ending.mp3" />
         <MatrixNumberRain
           numColumns={window.innerWidth < 768 ? 20 : 50}
           speed={30}
@@ -103,6 +125,7 @@ export default function QuizStartPage({ initialQuestions }) {
   if (stage === 'start-text') {
     return (
       <div className="min-h-screen bg-black text-white flex items-center font-grotesk justify-center overflow-hidden relative">
+        <audio ref={audioRef} src="/ending.mp3" />
         <MatrixNumberRain
           numColumns={window.innerWidth < 768 ? 20 : 50}
           speed={30}
