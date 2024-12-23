@@ -25,10 +25,10 @@ export default async function Page() {
       id: 3,
       question: "What is the FlagShip Event of Hackerz 2025?",
       option1: "Code-a-thon",
-      option2: "Idea-a-thon(Seeds Start)",
+      option2: "Idea-a-thon(Seed Start)",
       option3: "Competitive Programming",
       option4: "AI Challenge",
-      answer: "Idea-a-thon(Seeds Start)"
+      answer: "Idea-a-thon(Seed Start)"
     }
   ];
   
