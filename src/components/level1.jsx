@@ -39,7 +39,13 @@ export default function Level1({ onVideoEnd }) {
     }
   }, [showCongratulations, onVideoEnd]);
 
-  const handleSkip = () => {
+  const handleSkip = (e) => {
+    e.stopPropagation();
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+    
     if (onVideoEnd) {
       onVideoEnd();
     }
@@ -47,7 +53,7 @@ export default function Level1({ onVideoEnd }) {
 
   return (
     <>
-      <div className="mt-[30px] fixed top-4 left-0 right-0 flex justify-center z-50 px-4 font-grotesk">
+      <div className="mt-[30px] fixed top-4 left-0 right-0 flex justify-center z-40 px-4 font-grotesk">
         <div className="bg-red-900/80 text-white px-4 py-2 rounded-full text-sm sm:text-base md:text-xl uppercase tracking-wider animate-pulse flex items-center max-w-full overflow-hidden text-ellipsis">
           <ShieldAlert className="mr-2 flex-shrink-0" size={16} />
           <span className="whitespace-nowrap overflow-hidden text-ellipsis">
@@ -57,13 +63,13 @@ export default function Level1({ onVideoEnd }) {
       </div>
 
       {!showCongratulations && (
-        <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-2">
+        <div className="fixed bottom-4 right-4 z-[100] flex flex-col items-end gap-2 pointer-events-auto">
           <div className="text-white text-xs sm:text-sm md:text-base bg-red-900/60 px-3 py-1 rounded-full">
             Click here to Instantly Advance to the Next Firewall
           </div>
           <button
             onClick={handleSkip}
-            className="bg-red-900/80 hover:bg-red-800 text-white px-4 py-2 rounded-full text-sm sm:text-base uppercase tracking-wider flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-red-500/50"
+            className="bg-red-900/80 hover:bg-red-800 text-white px-4 py-2 rounded-full text-sm sm:text-base uppercase tracking-wider flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-red-500/50 cursor-pointer"
           >
             Skip
             <SkipForward size={16} />
@@ -93,7 +99,7 @@ export default function Level1({ onVideoEnd }) {
             </div>
           </div>
 
-          <div className="p-4 sm:p-8 text-center">
+          <div className="p-4 sm:p-8 text-center relative">
             {showCongratulations ? (
               <div className="flex flex-col items-center justify-center space-y-6">
                 <div className="text-2xl sm:text-4xl font-bold text-red-500 uppercase tracking-widest animate-glitch-text flex items-center flex-wrap justify-center gap-4">
@@ -126,7 +132,7 @@ export default function Level1({ onVideoEnd }) {
         </div>
       </div>
 
-      <div className="mt-[30px] font-grotesk fixed top-4 left-0 right-0 flex justify-center z-50 px-4">
+      <div className="mt-[30px] font-grotesk fixed top-4 left-0 right-0 flex justify-center z-40 px-4">
         <div className="mt-[570px] bg-red-900/80 text-white px-4 py-2 rounded-full text-sm sm:text-base md:text-xl uppercase tracking-wider animate-pulse flex items-center max-w-full overflow-hidden text-ellipsis">
           <ShieldAlert className="mr-2 flex-shrink-0" size={16} />
           <span className="whitespace-nowrap overflow-hidden text-ellipsis">

@@ -10,11 +10,22 @@ export default function QuizStartPage({ initialQuestions }) {
   const [instructionText, setInstructionText] = useState('');
   const [showButton, setShowButton] = useState(false);
   const [isVideoLoading, setIsVideoLoading] = useState(true);
+  const [isWideScreen, setIsWideScreen] = useState(false);
   const router = useRouter();
   const videoRef = useRef(null);
   const audioRef = useRef(null);
 
   const fullInstructionText = "You have Successfully Bypassed all the Three Firewalls. You can now Access the Hackerz System";
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsWideScreen(window.innerWidth > window.innerHeight);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   useEffect(() => {
     if (stage === 'initial-text') {
@@ -172,7 +183,7 @@ export default function QuizStartPage({ initialQuestions }) {
    
   if (stage === 'video') {
     return (
-      <div className="fixed inset-0 z-50 flex items-center font-grotesk justify-center bg-black">
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black">
         {isVideoLoading && (
           <div className="absolute z-50 bg-black/80 p-6 rounded-lg border-2 border-red-600/50 shadow-[0_0_40px_rgba(255,0,0,0.5)]">
             <div className="text-red-500 text-xl animate-pulse">
@@ -180,15 +191,21 @@ export default function QuizStartPage({ initialQuestions }) {
             </div>
           </div>
         )}
-        <video
-          ref={videoRef}
-          src="/ending.mp4"
-          autoPlay
-          playsInline
-          className="w-full h-full object-contain"
-          onEnded={() => router.push('/comments')}
-          onPlaying={() => setIsVideoLoading(false)}
-        />
+        <div className={`relative w-full h-full ${isWideScreen ? 'flex items-center justify-center' : ''}`}>
+          <video
+            ref={videoRef}
+            src="/ending.mp4"
+            autoPlay
+            playsInline
+            className={`${
+              isWideScreen
+                ? 'w-full h-full object-cover'
+                : 'w-full h-full object-contain'
+            }`}
+            onEnded={() => router.push('/comments')}
+            onPlaying={() => setIsVideoLoading(false)}
+          />
+        </div>
       </div>
     );
   }
