@@ -69,10 +69,11 @@ export default function Level1({ onVideoEnd }) {
           </div>
           <button
             onClick={handleSkip}
-            className="bg-red-900/80 hover:bg-red-800 text-white px-4 py-2 rounded-full text-sm sm:text-base uppercase tracking-wider flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-red-500/50 cursor-pointer"
+            className="bg-red-900 hover:bg-red-800 text-white px-6 py-3 rounded-lg text-sm sm:text-base uppercase tracking-wider flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-red-500/50 cursor-pointer border-2 border-red-600 relative overflow-hidden group"
           >
-            Skip
-            <SkipForward size={16} />
+            <div className="absolute inset-0 bg-red-600/20 transform -skew-x-12 translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+            <span className="relative z-10 font-bold">Skip</span>
+            <SkipForward size={16} className="relative z-10" />
           </button>
         </div>
       )}
