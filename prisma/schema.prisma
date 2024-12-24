@@ -12,3 +12,11 @@ model Comments {
   id    Int     @id @default(autoincrement())
   comment   String
 }
+
+model ButtonCounter {
+  id         Int      @id @default(1)
+  count      Int      @default(0)
+  updatedAt  DateTime @updatedAt
+
+  @@map("button_counter")
+}

@@ -8,19 +8,28 @@ export default function CommentsPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [numColumns, setNumColumns] = useState(50);
+  const [clickCount, setClickCount] = useState(0);
+
+  useEffect(() => {
+    const fetchClickCount = async () => {
+      try {
+        const response = await fetch('/api/button-clicks');
+        const data = await response.json();
+        setClickCount(data.count || 0);
+      } catch (error) {
+        console.error('Error fetching click count:', error);
+      }
+    };
+
+    fetchClickCount();
+  }, []);
 
   useEffect(() => {
     const updateColumnCount = () => {
       setNumColumns(window.innerWidth < 768 ? 20 : 50);
     };
-
-    // Set initial value
     updateColumnCount();
-
-    // Add event listener for window resize
     window.addEventListener('resize', updateColumnCount);
-
-    // Cleanup
     return () => window.removeEventListener('resize', updateColumnCount);
   }, []);
 
@@ -52,7 +61,6 @@ export default function CommentsPage() {
 
   return (
     <div className="relative min-h-screen bg-black text-white">
-      {/* Matrix Rain Background - positioned absolutely */}
       <div className="absolute inset-0 overflow-hidden">
         <MatrixNumberRain
           numColumns={numColumns}
@@ -60,8 +68,6 @@ export default function CommentsPage() {
           density={0.8}
         />
       </div>
-
-      {/* Main Content - with higher z-index */}
       <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
         {isSubmitted ? (
           <div className="w-full max-w-xl text-center space-y-6 animate-fade-in">
@@ -76,7 +82,7 @@ export default function CommentsPage() {
             <h1 className="text-3xl font-grotesk text-red-500 mb-6 text-center">
               Help us debug and optimize future editions by sharing your insights.
             </h1>
-            
+
             <form onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <textarea
@@ -87,7 +93,7 @@ export default function CommentsPage() {
                   required
                 />
               </div>
-              
+
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -96,6 +102,12 @@ export default function CommentsPage() {
                 {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
               </button>
             </form>
+            <div className="mb-6 p-4 mt-[10px] bg-gray-900/50 border border-red-600/30 rounded-lg">
+              <h2 className="text-xl text-red-500 mb-2">System Statistics</h2>
+              <p className="text-gray-300">
+                Breach Attempts Detected: <span className="text-red-500 font-bold">{clickCount}</span>
+              </p>
+            </div>
           </div>
         )}
       </div>

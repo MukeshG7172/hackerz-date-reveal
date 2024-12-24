@@ -60,11 +60,12 @@ export default function QuizStartPage({ initialQuestions }) {
   }, [stage]);
 
   const handleStartBreaching = () => {
-    console.log('Start Breaching button clicked');
+    // Immediately set stage to video and attempt to play
     setStage('video');
+    
+    // Play video immediately
     setTimeout(() => {
       if (videoRef.current) {
-        console.log('Video element found', videoRef.current);
         videoRef.current.play()
           .then(() => {
             console.log('Video started playing successfully');
@@ -73,16 +74,25 @@ export default function QuizStartPage({ initialQuestions }) {
             console.error('Error playing video:', error);
             alert('Please interact with the page to start the video');
           });
-      } else {
-        console.error('Video ref is null');
       }
-    }, 100);
+    }, 0);
+
+    // Handle API call in the background
+    fetch('/api/button-clicks', { 
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).catch(error => {
+      console.error('Error updating click counter:', error);
+    });
   };
 
   const handleAcknowledge = () => {
     setStage('initial-text');
   };
 
+  // Rest of the component remains the same...
   const DisclaimerOverlay = () => (
     <div className="absolute inset-0 flex items-center justify-center z-20 bg-black/90 backdrop-blur-md">
       <div className="w-full max-w-lg mx-4 bg-gradient-to-b from-[#0a0a0a] to-[#1a1a1a] border-2 border-green-500/50 rounded-xl shadow-[0_0_60px_rgba(0,255,0,0.4)] p-8 text-center transform hover:scale-[1.02] transition-all duration-300">
