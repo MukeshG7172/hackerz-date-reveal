@@ -1,22 +1,54 @@
 import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import { PrismaClient } from '@prisma/client';
 
-export async function POST(request) {
+const prisma = new PrismaClient();
+
+async function initializeCounter() {
   try {
-    const { comment } = await request.json();
+    await prisma.$executeRaw`
+      INSERT INTO ButtonCounter (id, count)
+      VALUES (1, 0)
+      ON CONFLICT (id) DO NOTHING
+    `;
+  } catch (error) {
+    console.error('Error initializing counter:', error);
+  }
+}
 
-    const newComment = await prisma.comments.create({
-      data: {
-        comment,
-      },
+export async function POST() {
+  try {
+    await initializeCounter();
+    
+    const updatedCounter = await prisma.$transaction(async (tx) => {
+      const result = await tx.buttonCounter.update({
+        where: { id: 1 },
+        data: {
+          count: {
+            increment: 1
+          }
+        }
+      });
+      return result;
     });
 
-    return NextResponse.json(newComment, { status: 201 });
+    return NextResponse.json(updatedCounter);
   } catch (error) {
-    console.error('Error creating comment:', error);
-    return NextResponse.json(
-      { error: 'Failed to create comment' },
-      { status: 500 }
-    );
+    console.error('Error updating click counter:', error);
+    return NextResponse.json({ error: 'Failed to update click counter' }, { status: 500 });
+  }
+}
+
+export async function GET() {
+  try {
+    await initializeCounter();
+    
+    const counter = await prisma.buttonCounter.findUnique({
+      where: { id: 1 }
+    });
+    
+    return NextResponse.json(counter);
+  } catch (error) {
+    console.error('Error fetching click counter:', error);
+    return NextResponse.json({ error: 'Failed to fetch click counter' }, { status: 500 });
   }
 }
