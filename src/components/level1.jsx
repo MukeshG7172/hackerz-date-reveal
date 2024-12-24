@@ -52,7 +52,7 @@ export default function Level1({ onVideoEnd }) {
   };
 
   return (
-    <>
+    <div className="relative min-h-screen">
       <div className="mt-[30px] fixed top-4 left-0 right-0 flex justify-center z-40 px-4 font-grotesk">
         <div className="bg-red-900/80 text-white px-4 py-2 rounded-full text-sm sm:text-base md:text-xl uppercase tracking-wider animate-pulse flex items-center max-w-full overflow-hidden text-ellipsis">
           <ShieldAlert className="mr-2 flex-shrink-0" size={16} />
@@ -63,18 +63,20 @@ export default function Level1({ onVideoEnd }) {
       </div>
 
       {!showCongratulations && (
-        <div className="fixed bottom-4 right-4 z-[100] flex flex-col items-end gap-2 pointer-events-auto">
-          <div className="text-white text-xs sm:text-sm md:text-base bg-red-900/60 px-3 py-1 rounded-full">
-            Click here to Instantly Advance to the Next Firewall
+        <div className="fixed bottom-4 right-4 z-[100]">
+          <div className="flex flex-col items-end gap-2">
+            <div className="text-white text-xs sm:text-sm md:text-base bg-red-900/60 px-3 py-1 rounded-full">
+              Click here to Instantly Advance to the Next Firewall
+            </div>
+            <button
+              onClick={handleSkip}
+              className="bg-red-900 hover:bg-red-800 text-white px-6 py-3 rounded-lg text-sm sm:text-base uppercase tracking-wider flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-red-500/50 cursor-pointer border-2 border-red-600 relative overflow-hidden group"
+            >
+              <div className="absolute inset-0 bg-red-600/20 transform -skew-x-12 translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+              <span className="relative z-10 font-bold">Skip</span>
+              <SkipForward size={16} className="relative z-10" />
+            </button>
           </div>
-          <button
-            onClick={handleSkip}
-            className="bg-red-900 hover:bg-red-800 text-white px-6 py-3 rounded-lg text-sm sm:text-base uppercase tracking-wider flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-red-500/50 cursor-pointer border-2 border-red-600 relative overflow-hidden group"
-          >
-            <div className="absolute inset-0 bg-red-600/20 transform -skew-x-12 translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
-            <span className="relative z-10 font-bold">Skip</span>
-            <SkipForward size={16} className="relative z-10" />
-          </button>
         </div>
       )}
 
@@ -85,7 +87,7 @@ export default function Level1({ onVideoEnd }) {
           density={0.8}
         />
 
-        <div className="absolute inset-0 pointer-events-none bg-grid-white/[0.05] opacity-20 overflow-hidden">
+        <div className="absolute inset-0 bg-grid-white/[0.05] opacity-20 overflow-hidden">
           <div className="absolute inset-0 bg-red-500/10 animate-glitch-overlay mix-blend-color-dodge"></div>
         </div>
 
@@ -141,6 +143,6 @@ export default function Level1({ onVideoEnd }) {
           </span>
         </div>
       </div>
-    </>
+    </div>
   );
 }
