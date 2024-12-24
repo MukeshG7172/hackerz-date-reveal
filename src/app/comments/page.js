@@ -14,10 +14,13 @@ export default function CommentsPage() {
       setNumColumns(window.innerWidth < 768 ? 20 : 50);
     };
 
+    // Set initial value
     updateColumnCount();
 
+    // Add event listener for window resize
     window.addEventListener('resize', updateColumnCount);
 
+    // Cleanup
     return () => window.removeEventListener('resize', updateColumnCount);
   }, []);
 
@@ -49,6 +52,7 @@ export default function CommentsPage() {
 
   return (
     <div className="relative min-h-screen bg-black text-white">
+      {/* Matrix Rain Background - positioned absolutely */}
       <div className="absolute inset-0 overflow-hidden">
         <MatrixNumberRain
           numColumns={numColumns}
@@ -57,6 +61,7 @@ export default function CommentsPage() {
         />
       </div>
 
+      {/* Main Content - with higher z-index */}
       <div className="relative z-10 min-h-screen flex items-center justify-center p-4">
         {isSubmitted ? (
           <div className="w-full max-w-xl text-center space-y-6 animate-fade-in">

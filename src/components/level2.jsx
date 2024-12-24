@@ -113,7 +113,7 @@ export default function Level1({ onVideoEnd }) {
         "
       >
         <span className="hidden sm:inline">Skip to next Firewall</span>
-        <span className="sm:hidden">Skip</span>
+        <span className="sm:hidden">Skip to next Firewall</span>
         <SkipForward size={16} />
       </button>
 

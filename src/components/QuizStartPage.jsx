@@ -101,7 +101,7 @@ export default function QuizStartPage({ initialQuestions }) {
             All systems remain secure with no unauthorized access.
           </p>
           <p className="text-green-400 text-xl font-bold animate-pulse">
-            Proceed to explore the breach... if you dare.
+            Proceed to explore the breach
           </p>
         </div>
         <button 
