@@ -22,7 +22,7 @@ export default function HackerQuizPage({ initialQuestions }) {
   const ghostTimerRef = useRef(null);
   const warningTimerRef = useRef(null);
 
-  // Enhanced hacking simulation effects
+  
   const generateSystemWarning = () => {
     const warnings = [
       "INTRUSION DETECTED",
@@ -39,7 +39,7 @@ export default function HackerQuizPage({ initialQuestions }) {
       newWarning
     ]);
 
-    // Trigger background noise
+    
     setBackgroundNoise(true);
     setTimeout(() => setBackgroundNoise(false), 200);
   };
@@ -56,7 +56,6 @@ export default function HackerQuizPage({ initialQuestions }) {
   };
 
   useEffect(() => {
-    // Set up periodic system warnings and ghost hovering
     const warningInterval = setInterval(generateSystemWarning, 2000);
     const hoverInterval = setInterval(simulateGhostHover, 2000);
 
@@ -155,7 +154,7 @@ export default function HackerQuizPage({ initialQuestions }) {
       justify-center 
       overflow-hidden 
       relative
-      p-4  // Added padding for smaller screens
+      p-4 
       ${hackEffect ? 'animate-glitch-screen' : ''}
       ${backgroundNoise ? 'animate-background-noise' : ''}
     `}>
@@ -194,7 +193,7 @@ export default function HackerQuizPage({ initialQuestions }) {
           flex 
           justify-center 
           z-50
-          px-4  // Added horizontal padding
+          px-4 
         ">
           <div className="
             bg-red-900/80 
