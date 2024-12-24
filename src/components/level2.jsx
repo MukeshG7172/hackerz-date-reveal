@@ -3,13 +3,15 @@ import { useState, useEffect, useRef } from 'react';
 import { ShieldAlert, Code, Skull, AlertTriangle, Zap, SkipForward } from 'lucide-react';
 import MatrixNumberRain from './MatrixNumberRain';
 
-export default function Level2({ onVideoEnd }) {
+export default function Level1({ onVideoEnd }) {
   const [showCongratulations, setShowCongratulations] = useState(true);
+  const [showSkipButton, setShowSkipButton] = useState(false);
   const videoRef = useRef(null);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowCongratulations(false);
+      setShowSkipButton(true);
     }, 3000);
 
     return () => clearTimeout(timer);
@@ -40,19 +42,19 @@ export default function Level2({ onVideoEnd }) {
   }, [showCongratulations, onVideoEnd]);
 
   const handleSkip = (e) => {
+    e.preventDefault();
     e.stopPropagation();
     if (videoRef.current) {
       videoRef.current.pause();
       videoRef.current.currentTime = 0;
     }
-    
     if (onVideoEnd) {
       onVideoEnd();
     }
   };
 
   return (
-    <div className="relative min-h-screen">
+    <div className="relative min-h-screen w-full">
       <div className="mt-[30px] fixed top-4 left-0 right-0 flex justify-center z-40 px-4 font-grotesk">
         <div className="bg-red-900/80 text-white px-4 py-2 rounded-full text-sm sm:text-base md:text-xl uppercase tracking-wider animate-pulse flex items-center max-w-full overflow-hidden text-ellipsis">
           <ShieldAlert className="mr-2 flex-shrink-0" size={16} />
@@ -62,8 +64,9 @@ export default function Level2({ onVideoEnd }) {
         </div>
       </div>
 
-      {!showCongratulations && (
-        <div className="fixed bottom-4 right-4 z-[100]">
+      
+      {showSkipButton && (
+        <div className="fixed bottom-4 right-4 z-50">
           <div className="flex flex-col items-end gap-2">
             <div className="text-white text-xs sm:text-sm md:text-base bg-red-900/60 px-3 py-1 rounded-full">
               Click here to Instantly Advance to the Next Firewall
@@ -80,6 +83,7 @@ export default function Level2({ onVideoEnd }) {
         </div>
       )}
 
+      
       <div className="min-h-screen font-grotesk bg-black text-white flex items-center justify-center overflow-hidden relative p-4">
         <MatrixNumberRain
           numColumns={50}
@@ -87,7 +91,7 @@ export default function Level2({ onVideoEnd }) {
           density={0.8}
         />
 
-        <div className="absolute inset-0 bg-grid-white/[0.05] opacity-20 overflow-hidden">
+        <div className="absolute inset-0 bg-grid-white/[0.05] opacity-20">
           <div className="absolute inset-0 bg-red-500/10 animate-glitch-overlay mix-blend-color-dodge"></div>
         </div>
 
@@ -135,6 +139,7 @@ export default function Level2({ onVideoEnd }) {
         </div>
       </div>
 
+      
       <div className="mt-[30px] font-grotesk fixed top-4 left-0 right-0 flex justify-center z-40 px-4">
         <div className="mt-[570px] bg-red-900/80 text-white px-4 py-2 rounded-full text-sm sm:text-base md:text-xl uppercase tracking-wider animate-pulse flex items-center max-w-full overflow-hidden text-ellipsis">
           <ShieldAlert className="mr-2 flex-shrink-0" size={16} />
