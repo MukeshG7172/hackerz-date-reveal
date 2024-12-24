@@ -57,14 +57,18 @@ export default function Level1({ onVideoEnd }) {
       </div>
 
       {!showCongratulations && (
-        <button
-          onClick={handleSkip}
-          className="fixed bottom-4 right-4 z-50 bg-red-900/80 hover:bg-red-800 text-white px-4 py-2 rounded-full text-sm sm:text-base uppercase tracking-wider flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-red-500/50"
-        >
-          <span className="hidden sm:inline">Skip to next Firewall</span>
-          <span className="sm:hidden">Skip to next Firewall</span>
-          <SkipForward size={16} />
-        </button>
+        <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-2">
+          <div className="text-white text-xs sm:text-sm md:text-base bg-red-900/60 px-3 py-1 rounded-full">
+          Click here to Instantly Advance to the Next Firewall
+          </div>
+          <button
+            onClick={handleSkip}
+            className="bg-red-900/80 hover:bg-red-800 text-white px-4 py-2 rounded-full text-sm sm:text-base uppercase tracking-wider flex items-center gap-2 transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-red-500/50"
+          >
+            Skip
+            <SkipForward size={16} />
+          </button>
+        </div>
       )}
 
       <div className="min-h-screen font-grotesk bg-black text-white flex items-center justify-center overflow-hidden relative p-4">
@@ -123,7 +127,7 @@ export default function Level1({ onVideoEnd }) {
       </div>
 
       <div className="mt-[30px] font-grotesk fixed top-4 left-0 right-0 flex justify-center z-50 px-4">
-        <div className="mt-[550px] bg-red-900/80 text-white px-4 py-2 rounded-full text-sm sm:text-base md:text-xl uppercase tracking-wider animate-pulse flex items-center max-w-full overflow-hidden text-ellipsis">
+        <div className="mt-[600px] bg-red-900/80 text-white px-4 py-2 rounded-full text-sm sm:text-base md:text-xl uppercase tracking-wider animate-pulse flex items-center max-w-full overflow-hidden text-ellipsis">
           <ShieldAlert className="mr-2 flex-shrink-0" size={16} />
           <span className="whitespace-nowrap overflow-hidden text-ellipsis">
             Firewall 3 is loading...
